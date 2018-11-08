@@ -11,7 +11,6 @@
 		6B4FF7031431FC417B4DF03E /* Pods_ImageFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6057DEE4736008CBFACED5F6 /* Pods_ImageFinder.framework */; };
 		B62023277F90FCFC40830B44 /* Pods_ImageFinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A4B88A38F339A4574BA536 /* Pods_ImageFinderUITests.framework */; };
 		CC607EBB219466B300F341FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607EBA219466B300F341FE /* AppDelegate.swift */; };
-		CC607EBD219466B300F341FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607EBC219466B300F341FE /* ViewController.swift */; };
 		CC607EC0219466B300F341FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC607EBE219466B300F341FE /* Main.storyboard */; };
 		CC607EC2219466B400F341FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC607EC1219466B400F341FE /* Assets.xcassets */; };
 		CC607EC5219466B400F341FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC607EC3219466B400F341FE /* LaunchScreen.storyboard */; };
@@ -24,6 +23,10 @@
 		CC607F092194712700F341FE /* FlickrBrowserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F062194712700F341FE /* FlickrBrowserError.swift */; };
 		CC607F0C2194713900F341FE /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F0A2194713900F341FE /* Photos.swift */; };
 		CC607F0D2194713900F341FE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F0B2194713900F341FE /* Photo.swift */; };
+		CC607F0F2194746F00F341FE /* ImageCacheLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F0E2194746F00F341FE /* ImageCacheLoader.swift */; };
+		CC607F112194749900F341FE /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F102194749900F341FE /* Bindable.swift */; };
+		CC607F1321947AD600F341FE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F1221947AD600F341FE /* SearchViewController.swift */; };
+		CC607F1521947CC700F341FE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC607F1421947CC700F341FE /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +55,6 @@
 		A5A4B88A38F339A4574BA536 /* Pods_ImageFinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageFinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC607EB7219466B300F341FE /* ImageFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC607EBA219466B300F341FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CC607EBC219466B300F341FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CC607EBF219466B300F341FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC607EC1219466B400F341FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC607EC4219466B400F341FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -70,6 +72,10 @@
 		CC607F062194712700F341FE /* FlickrBrowserError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrBrowserError.swift; sourceTree = "<group>"; };
 		CC607F0A2194713900F341FE /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		CC607F0B2194713900F341FE /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		CC607F0E2194746F00F341FE /* ImageCacheLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheLoader.swift; sourceTree = "<group>"; };
+		CC607F102194749900F341FE /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		CC607F1221947AD600F341FE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CC607F1421947CC700F341FE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		DF4BA64935D62B42F49F3BB6 /* Pods-ImageFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageFinderTests/Pods-ImageFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF6784F97AF5DF2AA7CC233B /* Pods-ImageFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageFinderTests/Pods-ImageFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF7FC11E6C9A42374055D271 /* Pods_ImageFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +150,6 @@
 				CC607EFC219470F100F341FE /* Helpers */,
 				CC607EFB219470E400F341FE /* API */,
 				CC607EBA219466B300F341FE /* AppDelegate.swift */,
-				CC607EBC219466B300F341FE /* ViewController.swift */,
 				CC607EBE219466B300F341FE /* Main.storyboard */,
 				CC607EC1219466B400F341FE /* Assets.xcassets */,
 				CC607EC3219466B400F341FE /* LaunchScreen.storyboard */,
@@ -186,6 +191,8 @@
 				CC607F062194712700F341FE /* FlickrBrowserError.swift */,
 				CC607F052194712700F341FE /* Result.swift */,
 				CC607F042194712700F341FE /* URLBuilder.swift */,
+				CC607F0E2194746F00F341FE /* ImageCacheLoader.swift */,
+				CC607F102194749900F341FE /* Bindable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -202,6 +209,8 @@
 		CC607EFE2194710000F341FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CC607F1221947AD600F341FE /* SearchViewController.swift */,
+				CC607F1421947CC700F341FE /* SearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -385,6 +394,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -392,6 +402,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire_SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,10 +453,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC607F112194749900F341FE /* Bindable.swift in Sources */,
+				CC607F1321947AD600F341FE /* SearchViewController.swift in Sources */,
 				CC607F082194712700F341FE /* Result.swift in Sources */,
 				CC607F072194712700F341FE /* URLBuilder.swift in Sources */,
-				CC607EBD219466B300F341FE /* ViewController.swift in Sources */,
+				CC607F1521947CC700F341FE /* SearchView.swift in Sources */,
 				CC607F0D2194713900F341FE /* Photo.swift in Sources */,
+				CC607F0F2194746F00F341FE /* ImageCacheLoader.swift in Sources */,
 				CC607EBB219466B300F341FE /* AppDelegate.swift in Sources */,
 				CC607F0C2194713900F341FE /* Photos.swift in Sources */,
 				CC607F022194711A00F341FE /* AlamofireApiClient.swift in Sources */,

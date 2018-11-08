@@ -10,6 +10,7 @@ target 'ImageFinder' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire-SwiftyJSON', '~> 3.0'
   pod 'PKHUD', '~> 5.0'
+  pod 'PureLayout', '~> 3.0.1'
 
   target 'ImageFinderTests' do
     inherit! :search_paths
