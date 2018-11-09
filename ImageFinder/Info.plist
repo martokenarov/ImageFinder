@@ -41,5 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>GoogleSearchAPIKey</key>
+	<string>AIzaSyAOTjcln2sJgrOvWbywCB3nmki9O1eO85w</string>
 </dict>
 </plist>

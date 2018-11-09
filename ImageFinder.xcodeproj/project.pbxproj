@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21034C9B2194E7BF0054E4C5 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21034C9A2194E7BF0054E4C5 /* SearchViewModel.swift */; };
+		21034C9D2194EA4E0054E4C5 /* PhotoCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21034C9C2194EA4E0054E4C5 /* PhotoCollectionCellViewModel.swift */; };
+		21034C9F2194F2AA0054E4C5 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21034C9E2194F2AA0054E4C5 /* PhotoCollectionViewCell.swift */; };
 		5394891517ACD038384A171F /* Pods_ImageFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7FC11E6C9A42374055D271 /* Pods_ImageFinderTests.framework */; };
 		6B4FF7031431FC417B4DF03E /* Pods_ImageFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6057DEE4736008CBFACED5F6 /* Pods_ImageFinder.framework */; };
 		B62023277F90FCFC40830B44 /* Pods_ImageFinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A4B88A38F339A4574BA536 /* Pods_ImageFinderUITests.framework */; };
@@ -47,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21034C9A2194E7BF0054E4C5 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = SOURCE_ROOT; };
+		21034C9C2194EA4E0054E4C5 /* PhotoCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCellViewModel.swift; sourceTree = SOURCE_ROOT; };
+		21034C9E2194F2AA0054E4C5 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		237CB59E2F26B0C544AB4877 /* Pods-ImageFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageFinder/Pods-ImageFinder.release.xcconfig"; sourceTree = "<group>"; };
 		4F01E068B1593C1EBDB2D40E /* Pods-ImageFinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageFinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageFinderUITests/Pods-ImageFinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		521E9941F5CA6C0CF22013DC /* Pods-ImageFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageFinder/Pods-ImageFinder.debug.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 			children = (
 				CC607F1221947AD600F341FE /* SearchViewController.swift */,
 				CC607F1421947CC700F341FE /* SearchView.swift */,
+				21034C9E2194F2AA0054E4C5 /* PhotoCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,6 +225,8 @@
 		CC607EFF2194710700F341FE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				21034C9A2194E7BF0054E4C5 /* SearchViewModel.swift */,
+				21034C9C2194EA4E0054E4C5 /* PhotoCollectionCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -390,7 +399,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ImageFinder/Pods-ImageFinder-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ImageFinder/Pods-ImageFinder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-SwiftyJSON/Alamofire_SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
@@ -407,7 +416,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageFinder/Pods-ImageFinder-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageFinder/Pods-ImageFinder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E338B2FCED50E595AA5392A8 /* [CP] Check Pods Manifest.lock */ = {
@@ -458,10 +467,13 @@
 				CC607F082194712700F341FE /* Result.swift in Sources */,
 				CC607F072194712700F341FE /* URLBuilder.swift in Sources */,
 				CC607F1521947CC700F341FE /* SearchView.swift in Sources */,
+				21034C9B2194E7BF0054E4C5 /* SearchViewModel.swift in Sources */,
 				CC607F0D2194713900F341FE /* Photo.swift in Sources */,
 				CC607F0F2194746F00F341FE /* ImageCacheLoader.swift in Sources */,
 				CC607EBB219466B300F341FE /* AppDelegate.swift in Sources */,
+				21034C9D2194EA4E0054E4C5 /* PhotoCollectionCellViewModel.swift in Sources */,
 				CC607F0C2194713900F341FE /* Photos.swift in Sources */,
+				21034C9F2194F2AA0054E4C5 /* PhotoCollectionViewCell.swift in Sources */,
 				CC607F022194711A00F341FE /* AlamofireApiClient.swift in Sources */,
 				CC607F092194712700F341FE /* FlickrBrowserError.swift in Sources */,
 				CC607F032194711A00F341FE /* ApiClient.swift in Sources */,
@@ -648,7 +660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kenarov.com.ImageFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -667,7 +679,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kenarov.com.ImageFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

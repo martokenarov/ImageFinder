@@ -8,8 +8,31 @@
 
 import UIKit
 import PureLayout
+import PKHUD
 
 class SearchViewController: UIViewController {
+    
+    private var viewModel: SearchViewModel = SearchViewModel()
+    private var imageLoader = ImageCacheLoader()
+    
+    let collectionMargin = CGFloat(10)
+    let itemSpacing = CGFloat(10)
+    let itemHeight = CGFloat(322)
+    
+    var itemWidth = CGFloat(0)
+    
+    private struct Storyboard {
+        static let CellIdentifier = "PhotoCellIdentifier"
+    }
+    
+    var currentItem = 0 {
+        didSet {
+            page = currentItem + 1
+        }
+    }
+    var page = 1
+    
+    private var collectionView: UICollectionView!
     
     private var searchBar: UISearchBar!
     private var searchButton: UIButton!
@@ -24,6 +47,8 @@ class SearchViewController: UIViewController {
     private let searchBarEndingAlpha: CGFloat = 1
     private let searchButtonEndingAlpha: CGFloat = 0
     private let tableEndingAlpha: CGFloat = 1
+    private let collectionViewStartingAlpha: CGFloat = 0
+    private let collectionViewEndingAlpha: CGFloat = 1
     
     private let searchButtonStartingCornerRadius: CGFloat = 20
     private let searchButtonEndingCornerRadius: CGFloat = 0
@@ -42,7 +67,7 @@ class SearchViewController: UIViewController {
     func setupViews() {
         setupSearchBar()
         setupSearchButton()
-        setupResultsTable()
+        setupCollectionView()
         view.setNeedsUpdateConstraints()
     }
     
@@ -70,6 +95,30 @@ class SearchViewController: UIViewController {
         view.addSubview(resultsTable)
     }
     
+    func setupCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
+        itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
+        debugPrint("\(itemWidth)")
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0)
+        layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0)
+        
+        layout.minimumLineSpacing = itemSpacing
+        layout.scrollDirection = .horizontal
+//        collectionView.collectionViewLayout = layout
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.alpha = collectionViewStartingAlpha
+        view.addSubview(collectionView)
+    }
+ 
     // MARK: - Layout
     override func updateViewConstraints() {
         if !didSetupConstraints {
@@ -80,11 +129,11 @@ class SearchViewController: UIViewController {
             searchButton.autoSetDimension(.height, toSize: searchButtonHeight)
             searchButton.autoAlignAxis(toSuperviewAxis: .vertical)
             
-            resultsTable.autoAlignAxis(toSuperviewAxis: .vertical)
-            resultsTable.autoPinEdge(toSuperviewEdge: .leading)
-            resultsTable.autoPinEdge(toSuperviewEdge: .trailing)
-            resultsTable.autoPinEdge(toSuperviewEdge: .bottom)
-            resultsTable.autoPinEdge(.top, to: .bottom, of: searchBar)
+            collectionView.autoAlignAxis(toSuperviewAxis: .vertical)
+            collectionView.autoPinEdge(toSuperviewEdge: .leading)
+            collectionView.autoPinEdge(toSuperviewEdge: .trailing)
+            collectionView.autoPinEdge(toSuperviewEdge: .bottom)
+            collectionView.autoPinEdge(.top, to: .bottom, of: searchBar)
             
             didSetupConstraints = true
         }
@@ -125,7 +174,6 @@ class SearchViewController: UIViewController {
             UIView.animate(withDuration: 0.2,
                            animations: {
                             searchBar.alpha = self.searchBarEndingAlpha
-                            self.resultsTable.alpha = self.tableEndingAlpha
                             self.searchButton.alpha = self.searchButtonEndingAlpha
                             self.searchButton.layer.cornerRadius = self.searchButtonEndingCornerRadius
             }
@@ -140,7 +188,7 @@ class SearchViewController: UIViewController {
         UIView.animate(withDuration: 0.2,
                        animations: {
                         searchBar.alpha = self.searchBarStartingAlpha
-                        self.resultsTable.alpha = self.tableStartingAlpha
+                        self.collectionView.alpha = self.collectionViewStartingAlpha
                         self.searchButton.alpha = self.searchButtonStartingAlpha
                         self.searchButton.layer.cornerRadius = self.searchButtonStartingCornerRadius
         }, completion:  { finished in
@@ -161,5 +209,74 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         dismissSearchBar(searchBar: searchBar)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
+        perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)
+    }
+}
+
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.photoCells.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier, for: indexPath) as? PhotoCollectionViewCell
+        
+        if let cell = cell {
+            
+            let cellViewModel = self.viewModel.photoCells.value[indexPath.row]
+            
+            cell.viewModel = cellViewModel
+            
+            imageLoader.obtainImageWithPath(imagePath: cellViewModel.imageURL) { (image) in
+                // Before assigning the image, check whether the current cell is visible
+                cell.image.image = image
+            }
+        }
+        
+        return cell!
+    }
+}
+
+extension SearchViewController {
+    func bindViewModel() {
+        viewModel.photoCells.bindAndFire { [weak self] cells in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
+        viewModel.showLoadingHud.bind() { visible in
+            
+            DispatchQueue.main.async {
+                PKHUD.sharedHUD.contentView = PKHUDSystemActivityIndicatorView()
+                visible ? PKHUD.sharedHUD.show(onView: self.view) : PKHUD.sharedHUD.hide(true)
+            }
+        }
+        
+        viewModel.onShowError = { [weak self] message in
+            let alert = UIAlertController.init(title: "Error", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+            
+            DispatchQueue.main.async {
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func reload(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+            print("nothing to search")
+            return
+        }
+        
+        print(query)
     }
 }

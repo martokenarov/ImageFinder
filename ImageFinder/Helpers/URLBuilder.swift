@@ -8,18 +8,18 @@
 
 import Foundation
 
-// https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=08a2998d597918ddde1ecb42be6a4952&format=json&nojsoncallback=1&auth_token=72157701832813331-cc9948eb548675d8&api_sig=09f8b11918e8fd88892b375052972785
+// https://www.googleapis.com/customsearch/v1?q=Queen&imgSize=medium&imgType=photo&key={YOUR_API_KEY}
 
-private let baseURL = "https://api.flickr.com/services/rest/?"
-private let method = "flickr.photos.getRecent"
+private let baseURL = "https://www.googleapis.com/customsearch/v1?"
+private let q = "q"
 private let apiKey = "e3089e96135b1bbfbce78ee719212f75"
 private let perPage = "100"
 private let jsonFormat = "json"
 private let nojsoncallback = "1"
 
 class URLBuilder {
-    static func getRecentPhotosURL() -> String {
-        return baseURL + "method=\(method)&" + "api_key=\(apiKey)&" + "per_page=\(perPage)&" + "format=\(jsonFormat)&" + "nojsoncallback=\(nojsoncallback)"
+    static func searchPhotosURL(_ query: String) -> String {
+        return baseURL + "q=\(query)&" + "api_key=\(apiKey)&" + "per_page=\(perPage)&" + "format=\(jsonFormat)&" + "nojsoncallback=\(nojsoncallback)"
     }
     
     static func getURLImage(for photo: Photo) -> String {
