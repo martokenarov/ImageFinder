@@ -67,7 +67,13 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        bindViewModel()
+//        bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        bindViewModel()
     }
     
     func setupViews() {
@@ -169,7 +175,7 @@ class SearchViewController: UIViewController {
     
     func showSearchBar(searchBar: UISearchBar) {
         searchBarTop = true
-        
+        bindViewModel()
         view.setNeedsUpdateConstraints()
         view.updateConstraintsIfNeeded()
         
@@ -342,6 +348,7 @@ extension SearchViewController {
                 DispatchQueue.main.async {
                     self?.searchBar.becomeFirstResponder()
                     self?.view.layoutIfNeeded()
+                    self?.bindViewModel()
                 }
             }))
             

@@ -53,7 +53,6 @@ class SearchViewModel {
     private func populateCells(photos: [Photo]) {
         self.photoCells.value = photos.map({ (photo) -> PhotoCollectionCellViewModel in
             return PhotoCollectionCellViewModel(photo.name, imageURL: photo.thumbnailUrl, contentURL: photo.contentUrl)
-            
         })
     }
 }
