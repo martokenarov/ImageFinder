@@ -1,6 +1,6 @@
 ImageFinder
 
-The app calls a Google search API to get photos and show them one by one when swapping right to left.
+The app calls a Bing search API to get photos and show them in 2 dimensional grid. The User can view large single photo when tapping on it.
 
 Used libraries:
 
@@ -8,5 +8,7 @@ Used libraries:
     SwiftyJSON
     Alamofire-SwiftyJSON
     PKHUD
+    PureLayout
 
-After clone this repo run pod install.
+This app is written on XCode 10.0 and swift 4.
+After clone this repo runs pod install.
