@@ -41,7 +41,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>GoogleSearchAPIKey</key>
-	<string>AIzaSyAOTjcln2sJgrOvWbywCB3nmki9O1eO85w</string>
+	<key>BingSearchAPIKey</key>
+	<string>bbdcfa6b10f74679bd07849a598ad89b</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

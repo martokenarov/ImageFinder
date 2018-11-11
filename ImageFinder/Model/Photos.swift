@@ -9,28 +9,20 @@
 import Foundation
 import SwiftyJSON
 
-private var statusKey: String = "stat"
-private var photosKey: String = "photos"
-private var photoKey: String = "photo"
-private var pageKey: String = "page"
-private var pagesKey: String = "pages"
-private var perpagesKey: String = "perpages"
-private var totalKey: String = "total"
 
-struct Photos {
+private var webSearchUrlKey: String = "webSearchUrl"
+private var valueKey: String = "value"
+
+struct PhotosResponse {
     var photos:[Photo]
-    var status: String = "NOK"
 }
 
-extension Photos {
+extension PhotosResponse {
     init?(with json: JSON) {
-        let photosResponse = json[photosKey]
         
-        guard let photosArr = photosResponse[photoKey].array, let stat = json[statusKey].string else {
+        guard let photosArr = json[valueKey].array else {
             return nil
         }
-        
-        self.status = stat
         
         self.photos = photosArr.compactMap({
             return Photo(with: $0)

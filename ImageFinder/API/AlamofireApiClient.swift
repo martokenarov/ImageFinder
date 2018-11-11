@@ -11,11 +11,21 @@ import Alamofire
 import Alamofire_SwiftyJSON
 
 class AlamofireApiClient: ApiClient {
-    func getRecentPhotos(by url: String, completion: @escaping (GetPhotosResult) -> Void) {
-        Alamofire.request(url).validate().responseSwiftyJSON { responseJSON in
+    func getPhotos(by url: String, completion: @escaping (GetPhotosResult) -> Void) {
+        guard let path = Bundle.main.path(forResource: "Info", ofType: "plist"), let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject], let apiKey = dict["BingSearchAPIKey"] as? String else {
+            completion(.failure(FlickrBrowserError(title: nil, description: "Something wentwrong", code: .unknownError)))
+            return
+        }
+        
+         let headers = [
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": apiKey
+         ]
+        
+        Alamofire.request(url, method: .get, headers: headers).validate().responseSwiftyJSON { responseJSON in
             switch responseJSON.result {
             case .success(let json):
-                if let photos = Photos(with: json) {
+                if let photos = PhotosResponse(with: json) {
                     completion(.success(payload: photos))
                 } else {
                     completion(.failure(FlickrBrowserError(title: nil, description: "Error parsing JSON", code: .invalidResponse)))

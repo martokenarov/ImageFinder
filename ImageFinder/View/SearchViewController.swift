@@ -17,7 +17,7 @@ class SearchViewController: UIViewController {
     
     let collectionMargin = CGFloat(10)
     let itemSpacing = CGFloat(10)
-    let itemHeight = CGFloat(322)
+    var itemHeight = CGFloat(0)
     
     var itemWidth = CGFloat(0)
     
@@ -31,6 +31,11 @@ class SearchViewController: UIViewController {
         }
     }
     var page = 1
+    
+    let transition = BubbleTransition()
+    
+    var sourceCell: UICollectionViewCell?
+    var indexPath: IndexPath?
     
     private var collectionView: UICollectionView!
     
@@ -62,6 +67,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        bindViewModel()
     }
     
     func setupViews() {
@@ -98,19 +104,20 @@ class SearchViewController: UIViewController {
     func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
-        itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
+        itemWidth =  UIScreen.main.bounds.width  / 2.0 - collectionMargin
         debugPrint("\(itemWidth)")
+        itemHeight = itemWidth
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         layout.headerReferenceSize = CGSize(width: collectionMargin, height: 0)
         layout.footerReferenceSize = CGSize(width: collectionMargin, height: 0)
         
         layout.minimumLineSpacing = itemSpacing
-        layout.scrollDirection = .horizontal
-//        collectionView.collectionViewLayout = layout
+        layout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
+        collectionView.register(UINib(nibName: "PhotoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: Storyboard.CellIdentifier)
+//        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: Storyboard.CellIdentifier)
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         
         collectionView.dataSource = self
@@ -175,6 +182,7 @@ class SearchViewController: UIViewController {
                            animations: {
                             searchBar.alpha = self.searchBarEndingAlpha
                             self.searchButton.alpha = self.searchButtonEndingAlpha
+                            self.collectionView.alpha = self.collectionViewEndingAlpha
                             self.searchButton.layer.cornerRadius = self.searchButtonEndingCornerRadius
             }
             )
@@ -184,6 +192,7 @@ class SearchViewController: UIViewController {
     
     func dismissSearchBar(searchBar: UISearchBar) {
         searchBarTop = false
+        viewModel.photoCells = Bindable([PhotoCollectionCellViewModel]())
         
         UIView.animate(withDuration: 0.2,
                        animations: {
@@ -191,6 +200,8 @@ class SearchViewController: UIViewController {
                         self.collectionView.alpha = self.collectionViewStartingAlpha
                         self.searchButton.alpha = self.searchButtonStartingAlpha
                         self.searchButton.layer.cornerRadius = self.searchButtonStartingCornerRadius
+                        
+                        self.collectionView.reloadData()
         }, completion:  { finished in
             self.view.setNeedsUpdateConstraints()
             self.view.updateConstraintsIfNeeded()
@@ -245,6 +256,59 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 }
 
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView.cellForItem(at: indexPath) != nil else {
+            fatalError("no cell at \(indexPath)")
+        }
+        
+        self.indexPath = indexPath
+        self.performSegue(withIdentifier: "ShowPhotoSegue", sender: collectionView.cellForItem(at: indexPath))
+    }
+}
+
+extension SearchViewController: UIViewControllerTransitioningDelegate {
+    // MARK: UIViewControllerTransitioningDelegate
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? PhotoViewController {
+            
+            controller.transitioningDelegate = self
+            controller.modalPresentationStyle = .custom
+            
+            if let indexPath = self.indexPath {
+                let cellModel = self.viewModel.photoCells.value[indexPath.row]
+                controller.photoViewModel = PhotoViewModel(cellModel.title, imageURL: cellModel.contentURL)
+            }
+        }
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        
+        if let indexPath = self.indexPath, let selectedCell = collectionView?.cellForItem(at: indexPath) {
+            
+            transition.startingPoint = selectedCell.center
+            transition.bubbleColor = selectedCell.backgroundColor!
+        }
+        
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        
+        if let indexPath = self.indexPath, let selectedCell = collectionView?.cellForItem(at: indexPath) {
+            
+            transition.startingPoint = selectedCell.center
+            transition.bubbleColor = selectedCell.backgroundColor!
+            
+        }
+        
+        return transition
+    }
+}
+
 extension SearchViewController {
     func bindViewModel() {
         viewModel.photoCells.bindAndFire { [weak self] cells in
@@ -269,6 +333,25 @@ extension SearchViewController {
                 self?.present(alert, animated: true, completion: nil)
             }
         }
+        
+        viewModel.onNothingFound = { [weak self] message in
+            let alert = UIAlertController.init(title: "Sorry", message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction.init(title: "OK", style: .destructive, handler: { [weak self] (action) in
+                
+                DispatchQueue.main.async {
+                    self?.searchBar.becomeFirstResponder()
+                    self?.view.layoutIfNeeded()
+                }
+            }))
+            
+            DispatchQueue.main.async {
+                
+                self?.collectionView.reloadData()
+                
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     @objc func reload(_ searchBar: UISearchBar) {
@@ -278,5 +361,6 @@ extension SearchViewController {
         }
         
         print(query)
+        viewModel.getPhotos(query)
     }
 }

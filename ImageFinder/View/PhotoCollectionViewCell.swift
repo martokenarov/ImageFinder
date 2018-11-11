@@ -11,7 +11,6 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var title: UILabel!
     
     var viewModel: PhotoCollectionCellViewModel? {
         didSet {
@@ -27,6 +26,5 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     private func bindViewModel() {
-        title.text = viewModel?.title
     }
 }

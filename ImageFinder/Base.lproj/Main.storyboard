@@ -22,6 +22,9 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Image Finder" id="8eC-Mi-fYm"/>
+                    <connections>
+                        <segue destination="5ZT-X6-IfD" kind="presentation" identifier="ShowPhotoSegue" id="Nyd-8G-Y9i"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E6h-09-wBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,6 +47,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iS5-lc-U33" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="-1.3493253373313345"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="TJe-7Z-nkn">
+            <objects>
+                <viewController id="5ZT-X6-IfD" customClass="PhotoViewController" customModule="ImageFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yJD-iI-qQh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2K6-4f-wap">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="zid-Lj-dKG">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="mss-Xb-iLj">
+                                            <connections>
+                                                <action selector="backActionWithSender:" destination="5ZT-X6-IfD" id="oXd-1j-o1k"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IlZ-Ek-vAE">
+                                <rect key="frame" x="16" y="102" width="343" height="529"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IlZ-Ek-vAE" firstAttribute="leading" secondItem="gvo-Pa-lSD" secondAttribute="leading" constant="16" id="0bu-tb-AUU"/>
+                            <constraint firstItem="gvo-Pa-lSD" firstAttribute="bottom" secondItem="IlZ-Ek-vAE" secondAttribute="bottom" constant="36" id="CrA-JE-j7v"/>
+                            <constraint firstItem="gvo-Pa-lSD" firstAttribute="trailing" secondItem="IlZ-Ek-vAE" secondAttribute="trailing" constant="16" id="GQr-Us-w3n"/>
+                            <constraint firstItem="2K6-4f-wap" firstAttribute="leading" secondItem="gvo-Pa-lSD" secondAttribute="leading" id="ZFd-de-nXK"/>
+                            <constraint firstItem="IlZ-Ek-vAE" firstAttribute="top" secondItem="2K6-4f-wap" secondAttribute="bottom" constant="38" id="ddm-Yx-uAw"/>
+                            <constraint firstItem="2K6-4f-wap" firstAttribute="trailing" secondItem="gvo-Pa-lSD" secondAttribute="trailing" id="wfi-Qf-U2M"/>
+                            <constraint firstItem="2K6-4f-wap" firstAttribute="top" secondItem="gvo-Pa-lSD" secondAttribute="top" id="yQ5-Gt-E3m"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gvo-Pa-lSD"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnBack" destination="mss-Xb-iLj" id="c1C-Vs-uFj"/>
+                        <outlet property="imageView" destination="IlZ-Ek-vAE" id="Q2C-uh-Oc7"/>
+                        <outlet property="navigationBar" destination="2K6-4f-wap" id="2nT-ME-iwi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JK1-KP-w0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1956" y="-1.3493253373313345"/>
         </scene>
     </scenes>
 </document>

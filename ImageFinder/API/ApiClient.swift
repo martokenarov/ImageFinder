@@ -8,11 +8,11 @@
 
 import Foundation
 
-typealias GetPhotosResult = Result<Photos, FlickrBrowserError>
+typealias GetPhotosResult = Result<PhotosResponse, FlickrBrowserError>
 typealias GetPhotosCompletion = (GetPhotosResult) -> Void
 
 typealias Parameters = Dictionary<String, AnyObject>
 
 protocol ApiClient {
-    func getRecentPhotos(by url: String, completion: @escaping GetPhotosCompletion)
+    func getPhotos(by url: String, completion: @escaping GetPhotosCompletion)
 }

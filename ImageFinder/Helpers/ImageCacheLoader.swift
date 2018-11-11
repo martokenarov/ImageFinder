@@ -28,7 +28,7 @@ class ImageCacheLoader {
         } else {
             /* You need placeholder image in your assets,
              if you want to display a placeholder to user */
-            let placeholder = UIImage(named: "no-image")
+            let placeholder = UIImage(named: "loadingImage")
             DispatchQueue.main.async {
                 completionHandler(placeholder!)
             }

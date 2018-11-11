@@ -11,9 +11,11 @@ import Foundation
 class PhotoCollectionCellViewModel {
     var title: String
     var imageURL: String
+    var contentURL: String
     
-    init(_ title: String, imageURL: String) {
+    init(_ title: String, imageURL: String, contentURL: String) {
         self.title = title
         self.imageURL = imageURL
+        self.contentURL = contentURL
     }
 }
